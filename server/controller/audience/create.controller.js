@@ -6,7 +6,7 @@ async function createAudience(req, res) {
     return res.status(400).send("Missing required information");
   }
   const audience = await services.audience.create({ name, tags, status });
-  res.status(201).send(audience);
+  res.status(201).json(audience);
 }
 
 module.exports = createAudience;

@@ -8,6 +8,23 @@ const service = {
       );
       return response;
     },
+    delete: async (id) => {
+      const response = await backendRequest.delete("/api/audience/delete", {
+        data: { id },
+      });
+      return response;
+    },
+    create: async (data) => {
+      const response = await backendRequest.post("/api/audience/create", data);
+      return response;
+    },
+    update: async (id, data) => {
+      const response = await backendRequest.put("/api/audience/update", {
+        id,
+        data,
+      });
+      return response;
+    },
   },
   tags: {
     getAll: async () => {

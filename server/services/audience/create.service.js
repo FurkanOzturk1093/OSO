@@ -4,11 +4,11 @@ async function createAudience({ name, tags, status }) {
   const tagsFromDb = await db("tags");
   const tagsIds = [];
   tags.forEach(async (tag) => {
-    const tagFromDb = tagsFromDb.find((t) => t.name === tag);
+    const tagFromDb = tagsFromDb.find((t) => t.name === tag.name);
     if (tagFromDb) {
       tagsIds.push(tagFromDb.id);
     } else {
-      const [id] = await db("tags").insert({ name: tag });
+      const [id] = await db("tags").insert({ name: tag.name });
       tagsIds.push(id);
     }
   });

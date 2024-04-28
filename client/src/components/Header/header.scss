@@ -1,0 +1,47 @@
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.btn {
+  background-color: white;
+  color: #d9d9d9;
+  padding: 7px 10px;
+  border: solid 1px #d9d9d9;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #f9f9f9;
+  color: black;
+}
+
+.btn-2 {
+  background-color: #d9d9d9;
+  color: black;
+  padding: 7px 10px;
+  border: solid 1px #d9d9d9;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-2:hover {
+  background-color: #f9f9f9;
+}
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.welcome-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: black;
+}

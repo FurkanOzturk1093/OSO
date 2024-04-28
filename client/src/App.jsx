@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Datatable from "./components/Audience/Datatable";
 import Sidebar from "./components/Sidebar/Sidebar";
 import EmptyRoute from "./components/EmptyRoute/EmptyRoute";
+import Header from "./components/Header/Header";
 function App() {
   return (
     <div
@@ -12,14 +13,8 @@ function App() {
       <div>
         <Sidebar />
       </div>
-      <div
-        style={{
-          width: "100%",
-          height: "100vh",
-          padding: "20px",
-          boxSizing: "border-box",
-        }}
-      >
+      <div className="container">
+        <Header />
         <Routes>
           <Route path="/" element={<div></div>} />
           <Route path="/audience" element={<Datatable />} />

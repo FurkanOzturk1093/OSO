@@ -7,6 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
 import SchemaIcon from "@mui/icons-material/Schema";
 import { useNavigate } from "react-router-dom";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import "./sidebar.scss";
 
 const Sidebar = () => {
@@ -84,6 +85,10 @@ const Sidebar = () => {
             <div>{tab.name}</div>
           </div>
         ))}
+      </div>
+      <div className="logout" onClick={() => navigate("/login")}>
+        <ExitToAppIcon />
+        <div>Logout</div>
       </div>
     </div>
   );

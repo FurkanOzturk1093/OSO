@@ -2,6 +2,8 @@ const createTag = require("./tags/create.service.js");
 const createAudience = require("./audience/create.service.js");
 const getAllAudience = require("./audience/getAll.service.js");
 const getAllTags = require("./tags/getAll.service.js");
+const deleteAudience = require("./audience/delete.service.js");
+const updateAudience = require("./audience/update.service.js");
 const server = {
   audience: {
     getAll: getAllAudience,
@@ -9,12 +11,8 @@ const server = {
       res.send("Get audience by id");
     },
     create: createAudience,
-    update: (req, res) => {
-      res.send("Update audience");
-    },
-    delete: (req, res) => {
-      res.send("Delete audience");
-    },
+    update: updateAudience,
+    delete: deleteAudience,
   },
   tags: {
     create: createTag,

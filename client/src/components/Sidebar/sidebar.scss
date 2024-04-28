@@ -15,6 +15,7 @@
     align-items: flex-start;
     margin-top: 20px;
     gap: 10px;
+    flex-grow: 1; /* Added flex-grow property */
 
     .menu-text {
       margin-top: 2rem;
@@ -42,6 +43,27 @@
       .icon-container {
         margin-right: 10px;
       }
+    }
+  }
+
+  .logout {
+    display: flex;
+    align-self: flex-end;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    background-color: #8241ff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    padding-left: 10px;
+    width: 100%;
+    gap: 1rem;
+
+    &:hover {
+      color: #8241ff;
+      font-weight: bold;
     }
   }
 }

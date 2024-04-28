@@ -6,7 +6,7 @@ import "./audience.scss";
 
 function DatatableHeader(props) {
   const [tags, setTags] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
+  // State for loading indicator
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,31 +16,33 @@ function DatatableHeader(props) {
     fetchData();
   }, []);
 
-  const { setTable } = props;
+  const { setTable, setIsLoading, isLoading } = props;
 
   // Debounced function for searching
   const onSearch = useMemo(
     () =>
       debounce((search) => {
-        setTable((prevState) => ({
-          ...prevState,
-          isLoading: true,
-        })); // Show loading indicator
+        setIsLoading(true); // Show loading indicator
         setTable((prevState) => ({
           ...prevState,
           search,
         }));
-        setTable((prevState) => ({
-          ...prevState,
-          isLoading: false,
-        })); // Hide loading indicator after debounce
       }, 1000),
     [setTable]
   );
 
+  // Effect to hide loading indicator after debounce
+  useEffect(() => {
+    const hideLoadingIndicator = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(hideLoadingIndicator);
+  }, [isLoading]);
+
   return (
     <div className="top-view">
-      <h1>Audience List</h1>
+      <h1 className="title-text">Audience List</h1>
       <div className="filter-area">
         <div className="search-container">
           <SearchIcon className="search-icon" />

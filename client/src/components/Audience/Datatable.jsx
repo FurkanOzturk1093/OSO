@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
-
+import { Audio } from "react-loader-spinner";
 import Table from "react-data-table-component";
 import service from "../../services/service.service";
 import DatatableHeader from "./DatatableHeader";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import Modal from "./Modal";
 function Datatable() {
   const [table, setTable] = useState({
     data: [],
     search: "",
     tag: "",
     status: "",
-    isLoading: false,
   });
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [mode, setMode] = useState("create"); // create or edit
+  const [rowData, setRowData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const [isUpdated, setIsUpdated] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       setTable((prevState) => ({
@@ -31,12 +37,26 @@ function Datatable() {
       }));
     };
     fetchData();
-  }, [table.search, table.tag, table.status]);
+  }, [table.search, table.tag, table.status, deleteId, isUpdated]);
 
+  const handleDelete = async (id) => {
+    setIsLoading(true);
+    try {
+      await service.audience.delete(id);
+      // After successful deletion, fetch updated data
+      fetchData();
+    } catch (error) {
+      // Handle error
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const columns = [
     {
       name: "Audience Name",
-      selector: (row) => row.name,
+      selector: (row) => {
+        return <span className="name-text">{row.name}</span>;
+      },
       sortable: true,
     },
     {
@@ -64,22 +84,83 @@ function Datatable() {
     },
     {
       name: "Action",
-      cell: () => (
-        <span>
-          <MoreHorizIcon />
-        </span>
+      cell: (row) => (
+        <div className="button-container">
+          <button
+            className="edit-button"
+            onClick={() => {
+              setMode("edit");
+              setIsModalOpen(true);
+              setRowData(row);
+            }}
+          >
+            <EditIcon />
+          </button>
+          <button
+            className="delete-button"
+            onClick={async () => {
+              await handleDelete(row.id);
+              setDeleteId(row.id);
+            }}
+          >
+            <DeleteIcon />
+          </button>
+        </div>
       ),
     },
   ];
+  function onClose() {
+    setIsModalOpen(false);
+  }
   return (
-    <div>
-      <DatatableHeader setTable={setTable} table={table} />
+    <div
+      style={{
+        width: "100%",
+      }}
+    >
+      <button
+        style={{
+          backgroundColor: "#3498db",
+          color: "white",
+          border: "none",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          cursor: "pointer",
+          marginBottom: "20px",
+          position: "relative",
+          left: "90%",
+        }}
+        onClick={() => {
+          setMode("create");
+          setIsModalOpen(true);
+        }}
+      >
+        Create Audience
+      </button>
+      <Modal
+        setIsUpdated={setIsUpdated}
+        isOpen={isModalOpen}
+        onClose={onClose}
+        rowData={rowData}
+        mode={mode}
+      />
+      <DatatableHeader
+        setTable={setTable}
+        table={table}
+        setIsLoading={setIsLoading}
+        isLoading={isLoading}
+      />
       <Table
         columns={columns}
         data={table.data}
         pagination
         selectableRows
-        progressPending={table.isLoading}
+        progressPending={isLoading}
+        progressComponent={
+          <span>
+            <Audio color="#8241FF" height={50} width={50} />
+          </span>
+        }
       />
     </div>
   );
