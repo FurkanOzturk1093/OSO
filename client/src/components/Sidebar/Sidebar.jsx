@@ -55,12 +55,12 @@ const Sidebar = () => {
 
   return (
     <div className="container">
-      <img src="/logo.svg" alt="logo" />
+      <img src="/logo.svg" alt="logo" className="logo" />
       <div className="sidebar">
-        <div className="search-container">
-          <SearchIcon className="search-icon" />
+        <div className="search-container-sidebar">
+          <SearchIcon className="search-icon-sidebar" />
           <input
-            className="search-area"
+            className="search-area-sidebar"
             type="text"
             placeholder="Search"
             value={searchQuery}
@@ -82,13 +82,13 @@ const Sidebar = () => {
             >
               {tab.icon}
             </div>
-            <div>{tab.name}</div>
+            <div className="tab-name">{tab.name}</div>
           </div>
         ))}
       </div>
       <div className="logout" onClick={() => navigate("/login")}>
         <ExitToAppIcon />
-        <div>Logout</div>
+        <div className="logout-text">Logout</div>
       </div>
     </div>
   );

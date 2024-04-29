@@ -45,3 +45,11 @@
   font-weight: 800;
   color: black;
 }
+
+@media screen and (max-width: 1024px) {
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

@@ -116,20 +116,12 @@ function Datatable() {
     <div
       style={{
         width: "100%",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <button
-        style={{
-          backgroundColor: "#3498db",
-          color: "white",
-          border: "none",
-          padding: "10px 20px",
-          borderRadius: "5px",
-          cursor: "pointer",
-          marginBottom: "20px",
-          position: "relative",
-          left: "90%",
-        }}
+        className="create-button"
         onClick={() => {
           setMode("create");
           setIsModalOpen(true);
