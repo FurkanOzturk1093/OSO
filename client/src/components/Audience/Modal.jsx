@@ -3,6 +3,8 @@ import "./audience.scss";
 import service from "../../services/service.service";
 import Select from "react-select";
 import CloseIcon from "@mui/icons-material/Close";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const Modal = ({ isOpen, onClose, rowData, mode, setIsUpdated }) => {
   const [updatedData, setUpdatedData] = useState({
@@ -54,15 +56,17 @@ const Modal = ({ isOpen, onClose, rowData, mode, setIsUpdated }) => {
       }
       if (mode === "edit") {
         const response = await service.audience.update(rowData.id, updatedData);
-
+        toast.success("Audience updated successfully");
         setIsUpdated(response);
       } else {
         const response = await service.audience.create(updatedData);
+        toast.success("Audience created successfully");
         setIsUpdated(response);
       }
       onClose(); // Close the modal after successful update
     } catch (error) {
       // Handle error
+      toast.error("Failed to update audience");
     }
   };
 

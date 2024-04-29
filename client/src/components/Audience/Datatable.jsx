@@ -6,6 +6,8 @@ import DatatableHeader from "./DatatableHeader";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Modal from "./Modal";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 function Datatable() {
   const [table, setTable] = useState({
     data: [],
@@ -44,6 +46,7 @@ function Datatable() {
     try {
       await service.audience.delete(id);
       // After successful deletion, fetch updated data
+      toast.success("Audience deleted successfully");
       fetchData();
     } catch (error) {
       // Handle error
